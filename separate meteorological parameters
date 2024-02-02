@@ -1,0 +1,22 @@
+# Look at the radiosonde data with separate meteorological parameters
+from siphon.simplewebservice.wyoming import WyomingUpperAir
+from datetime import datetime
+from metpy.units import units
+# from bs4 import BeautifulSoup
+# import numpy as np
+# import pymeteo.skewt as skewt
+date = datetime(2017, 9, 10, 6)
+station = 'MFL'
+df = WyomingUpperAir.request_data(date, station)
+
+print(df.columns)
+# Choose what to watch, for example
+print(df['pressure'], df['temperature'], df['dewpoint'], df['pw'])
+print(df['pressure'])
+print(df.units)
+print(df.units['pressure'])
+pressure = df['pressure'].values * units(df.units['pressure'])
+temperature = df['temperature'].values * units(df.units['temperature'])
+dewpoint = df['dewpoint'].values * units(df.units['dewpoint'])
+u_wind = df['u_wind'].values * units(df.units['u_wind'])
+v_wind = df['v_wind'].values * units(df.units['v_wind'])
